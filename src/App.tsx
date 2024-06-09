@@ -7,6 +7,8 @@ import {
   Container,
   Grid,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import AddTaskForm from "./AddTaskForm";
 import TaskList from "./TaskList";
@@ -19,6 +21,9 @@ export default function App() {
   const [tasks, setTasks] = useLocalStorage("tasks", [] as Task[]);
   const [alertBool, setAlertBool] = useState(false);
   const [alertText, setAlertText] = useState("");
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleAddTask = (newTaskText: string) => {
     const newTask: Task = {
@@ -60,9 +65,9 @@ export default function App() {
         alignItems={"center"}
         justifyContent={"center"}
         spacing={2}
-        padding={10}
+        padding={isSmallScreen ? 2 : 10}
       >
-        <Grid item xs={6} sx={{ textAlign: "center" }}>
+        <Grid item xs={12} md={10} lg={8} xl={6} sx={{ textAlign: "center" }}>
           <Card
             variant="outlined"
             sx={{ boxShadow: 20, borderRadius: 10, backgroundColor: "#F5EFE6" }}
